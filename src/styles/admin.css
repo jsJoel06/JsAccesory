@@ -1,0 +1,220 @@
+/* --- CONTENEDOR PRINCIPAL --- */
+.admin-container {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background-color: #f8fafc; /* Fondo gris muy claro */
+  border-radius: 16px;
+  min-height: 80vh;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+.admin-container h2 {
+  font-size: 2rem;
+  color: #0f172a;
+  font-weight: 800;
+  margin-bottom: 2.5rem;
+  text-align: left;
+  border-left: 5px solid #3b82f6; /* Detalle azul */
+  padding-left: 15px;
+}
+
+/* --- LISTA DE PRODUCTOS (MODO TABLA) --- */
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 2rem;
+}
+
+/* --- CADA ITEM (FILA DE LA TABLA) --- */
+.admin-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.admin-item:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateX(5px); /* Pequeño desplazamiento al pasar el mouse */
+}
+
+/* Texto del Producto */
+.admin-item div {
+  font-weight: 600;
+  color: #334155;
+  font-size: 1.1rem;
+}
+
+/* --- BOTÓN ELIMINAR --- */
+.admin-item button {
+  background-color: #fee2e2; /* Fondo rojo suave */
+  color: #ef4444; /* Texto rojo intenso */
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-item button:hover {
+  background-color: #ef4444;
+  color: white;
+  box-shadow: 0 4px 10px rgba(239, 68, 68, 0.2);
+}
+
+.admin-item button:active {
+  transform: scale(0.95);
+}
+
+/* --- MENSAJE VACÍO --- */
+.admin-container > p {
+  text-align: center;
+  color: #94a3b8;
+  font-style: italic;
+  padding: 4rem 0;
+  background: white;
+  border-radius: 12px;
+  border: 2px dashed #e2e8f0;
+}
+
+/* --- AJUSTES PARA EL FORMULARIO (Si está dentro de admin-container) --- */
+.admin-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 3rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+
+/* --- RESPONSIVO --- */
+@media (max-width: 640px) {
+  .admin-item {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  
+  .admin-item button {
+    width: 100%;
+  }
+}
+
+
+/* --- ESTILO DEL FORMULARIO DE ADMINISTRACIÓN --- */
+
+.admin-form {
+  background: #ffffff;
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border: 1px solid #eef2f6;
+}
+
+.admin-form h3 {
+  margin: 0 0 10px 0;
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Campos de texto e inputs */
+.admin-form input, 
+.admin-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+  box-sizing: border-box; /* Importante para que no se salgan del contenedor */
+}
+
+.admin-form input:focus, 
+.admin-form textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.admin-form textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Contenedor del Input de Archivo (Foto) */
+.file-input {
+  background: #f1f5f9;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px dashed #cbd5e1;
+  text-align: left;
+}
+
+.file-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #475569;
+  font-size: 13px;
+}
+
+.file-input input[type="file"] {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Botón Guardar */
+.admin-form button {
+  margin-top: 10px;
+  padding: 14px;
+  background-color: #1e293b; /* Color oscuro profesional */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.admin-form button:hover {
+  background-color: #334155;
+  transform: translateY(-2px);
+}
+
+.admin-form button:active {
+  transform: translateY(0);
+}
+
+.admin-form button:disabled {
+  background-color: #94a3b8;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Mensajes de feedback (Opcional si decides agregarlos) */
+.admin-form input::placeholder {
+  color: #94a3b8;
+}
