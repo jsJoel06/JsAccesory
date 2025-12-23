@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom"; // Cambiado a HashRouter
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import AdminDashboard from "./Pages/AdminDashboard";
@@ -10,12 +10,11 @@ import Footer from "./component/Footer";
 export default function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        {/* El Navbar siempre arriba */}
+      {/* HashRouter añade un '#' a la URL, evitando que Render busque carpetas físicas */}
+      <Router> 
         <Navbar />
 
-        {/* El contenedor de las rutas cambia el contenido del medio */}
-        <div style={{ minHeight: '80vh' }}> {/* Esto asegura que el footer no flote en medio de la pantalla si hay poco contenido */}
+        <div style={{ minHeight: '80vh' }}> 
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -27,13 +26,11 @@ export default function App() {
                 </ProtectedRoute>
               }
             />
-            {/* Borra la ruta de /footer, ya no es necesaria */}
           </Routes>
         </div>
 
-        {/* EL FOOTER VA AQUÍ: Fuera de Routes para que sea global */}
         <Footer />
-      </BrowserRouter>
+      </Router>
     </AuthProvider>
   );
 }
