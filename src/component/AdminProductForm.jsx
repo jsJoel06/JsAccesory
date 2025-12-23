@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { createAccesory, uploadFile } from "../appwrite/database";
+// Importamos la función unificada que creamos en database.js
+import { createProductWithImage } from "../appwrite/database"; 
 import '../styles/admin.css'
 
 export default function AdminProductForm({ onAdd }) {
@@ -11,7 +12,7 @@ export default function AdminProductForm({ onAdd }) {
     descripcion: "",
     color: "",
   });
-  const [file, setFile] = useState(null); // Estado para el archivo de imagen
+  const [file, setFile] = useState(null);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -19,27 +20,25 @@ export default function AdminProductForm({ onAdd }) {
     
     setLoading(true);
     try {
-      // 1. Subir la imagen al Storage de Appwrite
-      const fotoId = await uploadFile(file);
+      // Usamos la nueva función que hace todo en un solo paso
+      // Le pasamos los datos y el archivo
+      const dataForAppwrite = {
+        ...form,
+        precio: Number(form.precio),
+      };
 
-      if (fotoId) {
-        // 2. Crear el documento usando el ID de la foto recibida
-        await createAccesory({
-          ...form,
-          precio: Number(form.precio),
-          imagen: fotoId // Guardamos el ID en el campo imagen
-        });
-        
-        onAdd();
-        // Resetear formulario
-        setForm({ titulo:"", modelo:"", precio:"", descripcion:"", color:"" });
-        setFile(null);
-        e.target.reset(); // Limpia el input de tipo file
-        alert("Producto guardado con éxito");
-      }
+      await createProductWithImage(dataForAppwrite, file);
+      
+      // Si llegamos aquí, todo salió bien
+      onAdd();
+      setForm({ titulo:"", modelo:"", precio:"", descripcion:"", color:"" });
+      setFile(null);
+      e.target.reset(); 
+      alert("Producto e imagen guardados con éxito con ID compartido");
+      
     } catch (error) {
-      console.error(error);
-      alert("Error al guardar el producto");
+      console.error("Error al guardar:", error);
+      alert("Error al guardar el producto. Revisa la consola.");
     } finally {
       setLoading(false);
     }
@@ -53,7 +52,6 @@ export default function AdminProductForm({ onAdd }) {
       <input placeholder="Precio" type="number" value={form.precio} onChange={e=>setForm({...form,precio:e.target.value})} required/>
       <input placeholder="Color" value={form.color} onChange={e=>setForm({...form,color:e.target.value})} />
       
-      {/* Input para el archivo real */}
       <div className="file-input">
         <label>Foto del producto:</label>
         <input 
